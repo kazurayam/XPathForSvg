@@ -17,6 +17,7 @@ WebUI.openBrowser('')
 
 WebUI.navigateToUrl(htmlURL.toExternalForm())
 
+// long path
 String expr = '''
 //*[local-name()="svg"]
   /*[local-name()="g" and @class="sapHpaJourneyChartChannelData"]
@@ -24,12 +25,24 @@ String expr = '''
       /*[local-name()="g" and @class="sapHpaJourneyItemIconGroup"]
         /*[local-name()="text" and @x="110"]
 '''
-
-TestObject tObj = new TestObject()
-tObj.addProperty("xpath", ConditionType.EQUALS, expr)
-
-WebUI.verifyElementPresent(tObj, 10, FailureHandling.STOP_ON_FAILURE)
-def text = WebUI.getText(tObj)
+def text = getElementText(expr)
 WebUI.comment("text is '${text}'")
 
+// short hand example
+String expr2 = '''//*[local-name()="text" and @x="110"]'''
+def text2 = getElementText(expr2)
+WebUI.comment("text2 is '${text2}'")
+
+// this would not work
+String expr3 = '''//text[@x="110"]'''
+def text3 = getElementText(expr3)
+WebUI.comment("text 3 is '${text3}'")
+
 WebUI.closeBrowser()
+
+def getElementText(String xexpr) {
+	TestObject tObj = new TestObject(xexpr)
+	tObj.addProperty("xpath", ConditionType.EQUALS, xexpr)
+	WebUI.verifyElementPresent(tObj, 3, FailureHandling.STOP_ON_FAILURE)
+	return WebUI.getText(tObj)
+}
