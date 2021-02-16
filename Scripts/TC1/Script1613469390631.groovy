@@ -2,10 +2,10 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 import com.kms.katalon.core.configuration.RunConfiguration
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.testobject.ConditionType
 import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 Path projectDir = Paths.get(RunConfiguration.getProjectDir())
 Path html = projectDir.resolve("Include/resources/fixture/container.html")
